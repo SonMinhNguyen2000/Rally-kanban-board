@@ -142,7 +142,7 @@ To rebuild the local database from scratch, run `npx supabase db reset`. To stop
 
    ```sh
    npx supabase link --project-ref <your-project-ref>
-   npx supabase db push
+   npx supabase db push --remote
    ```
 
 3. Deploy to a host that runs Next.js on a server, such as Vercel, because writes use server actions. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` from **Project Settings > API**.
