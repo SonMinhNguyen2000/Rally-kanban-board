@@ -1,6 +1,7 @@
 'use server';
 
 import { toResult } from '@/lib/errors';
+import { parseDay } from '@/lib/board/dates';
 import { POSITION_STEP } from '@/lib/board/positions';
 import { dueDateIn, SAMPLE_LABELS, SAMPLE_MEMBERS, SAMPLE_TASKS } from '@/lib/board/sampleBoard';
 import { createClient } from '@/lib/supabase/server';
@@ -19,9 +20,12 @@ function nameKey(name: string): string {
  * Fills an empty board with the sample tasks, as the signed-in guest, so RLS applies as usual.
  * Does nothing if the board already has tasks, and reuses any member or label with the same name.
  * Tasks start in To Do and are then moved, so their timelines show real moves.
+ * @param today - The guest's own date as YYYY-MM-DD, because the server's may be a day apart.
  * @returns Success, or the first database error as a value.
  */
-export async function loadSampleBoard(): Promise<ActionResult> {
+export async function loadSampleBoard(today: string): Promise<ActionResult> {
+  // Server actions are public endpoints, so a malformed date falls back to the server's.
+  const from = /^\d{4}-\d{2}-\d{2}$/.test(today) ? parseDay(today) : new Date();
   const supabase = await createClient();
 
   const existing = await supabase.from('tasks').select('id').limit(1);
@@ -66,7 +70,7 @@ export async function loadSampleBoard(): Promise<ActionResult> {
         description: task.description,
         status: 'todo',
         priority: task.priority,
-        due_date: task.dueInDays === null ? null : dueDateIn(task.dueInDays),
+        due_date: task.dueInDays === null ? null : dueDateIn(task.dueInDays, from),
         position: place * POSITION_STEP,
       };
     }),

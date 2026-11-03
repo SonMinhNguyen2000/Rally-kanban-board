@@ -7,6 +7,22 @@ test.beforeAll(async ({ browser }) => {
 });
 test.use({ storageState: async ({}, use) => use(guest) });
 
+// The server's date can be a day apart from the guest's, so the extremes on both sides are checked.
+for (const timezoneId of ['Pacific/Kiritimati', 'Pacific/Pago_Pago']) {
+  test.describe(`sample board in ${timezoneId}`, () => {
+    test.use({ timezoneId });
+    test.beforeEach(async ({ context }) => clearBoard(context));
+
+    test('due dates follow the guest\'s own date', async ({ page }) => {
+      await openBoard(page);
+      await page.getByRole('button', { name: 'Load sample board' }).click();
+      await expect(card(page, 'Run keyboard accessibility pass').getByText('Overdue 1d')).toBeVisible();
+      await expect(card(page, 'Outline the Q4 launch plan').getByText('Due tomorrow')).toBeVisible();
+      await expect(page.locator('dl[aria-label="Board statistics"]').getByText('overdue')).toBeVisible();
+    });
+  });
+}
+
 test.describe('sample board', () => {
   test.beforeEach(async ({ context }) => clearBoard(context));
 
