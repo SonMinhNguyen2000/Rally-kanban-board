@@ -1,0 +1,242 @@
+/* Holds the card and its menu, which has to sit beside the card rather than inside it. */
+.frame {
+  position: relative;
+}
+
+.card {
+  padding: var(--space-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-touch-callout: none;
+  transition:
+    background-color var(--dur-hover) var(--ease-hover),
+    border-color var(--dur-hover) var(--ease-hover),
+    transform var(--dur-press) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    background: var(--surface-card-hover);
+    border-color: var(--line-3);
+  }
+}
+
+/* Lighter than a button's press, because a card this size moves more at the same scale. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .card:active:not(.lifted, .placeholder) {
+    transform: scale(0.985);
+  }
+}
+
+.selected,
+.selected:hover {
+  border-color: var(--accent);
+}
+
+/* Keeps the card's exact height, which is what the neighbours make room for. */
+.placeholder,
+.placeholder:hover {
+  background: var(--accent-slot);
+  border: 1px dashed var(--accent);
+}
+
+.placeholder .content {
+  visibility: hidden;
+}
+
+/* The pointer is always over a carried card, so hover colours must not reach it. */
+.lifted,
+.lifted:hover {
+  cursor: grabbing;
+  background: var(--surface-card);
+  border-color: var(--line-2);
+  box-shadow: var(--shadow-drag);
+  transform: rotate(var(--lift-rotate)) scale(var(--lift-scale));
+  animation: lift var(--dur-lift) var(--ease-out);
+}
+
+@keyframes lift {
+  from {
+    box-shadow: none;
+    transform: none;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  min-width: 0;
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  font-weight: var(--weight-medium);
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Keeps the title clear of the menu button, which floats over the card's corner. */
+.titleWithMenu {
+  padding-right: var(--control-md);
+}
+
+.menu {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+}
+
+.menuTrigger {
+  width: var(--control-md);
+  height: var(--control-md);
+  display: grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  color: var(--ink-3);
+  opacity: 0;
+  transition:
+    background-color var(--dur-hover) var(--ease-hover),
+    color var(--dur-hover) var(--ease-hover),
+    opacity var(--dur-hover) var(--ease-hover);
+}
+
+.menuTrigger:focus-visible,
+.menu:focus-within .menuTrigger {
+  opacity: 1;
+}
+
+@media (hover: hover) {
+  .frame:hover .menuTrigger {
+    opacity: 1;
+  }
+
+  .menuTrigger:hover {
+    background: var(--surface-hover);
+    color: var(--ink-1);
+  }
+}
+
+.menuList {
+  position: absolute;
+  z-index: var(--z-popover);
+  top: 100%;
+  right: 0;
+  min-width: 9.5rem;
+  padding: var(--space-1);
+  border: 1px solid var(--line-1);
+  border-radius: var(--radius-md);
+  background: var(--surface-overlay);
+  box-shadow: var(--shadow-menu);
+  animation: menu-in var(--dur-popover) var(--ease-out);
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+    transform-origin: top right;
+  }
+}
+
+.menuItem {
+  width: 100%;
+  min-height: var(--control-md);
+  padding: var(--space-1) var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-sm);
+  color: var(--ink-1);
+  font-size: var(--text-md);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.menuItem:focus-visible {
+  outline-offset: -2px;
+}
+
+.deleteItem {
+  color: var(--danger-ink);
+}
+
+@media (hover: hover) {
+  .menuItem:hover {
+    background: var(--surface-hover);
+  }
+
+  .deleteItem:hover {
+    background: var(--danger-tint);
+  }
+}
+
+/* Touch screens have no hover to reveal it, so it stays visible. */
+@media (hover: none) {
+  .menuTrigger {
+    opacity: 1;
+  }
+}
+
+@media (pointer: coarse) {
+  .titleWithMenu {
+    padding-right: var(--touch-min);
+  }
+
+  .menuTrigger {
+    width: var(--touch-min);
+    height: var(--touch-min);
+  }
+
+  .menuItem {
+    min-height: var(--touch-min);
+  }
+}
+
+.labels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  min-height: var(--avatar-sm);
+}
+
+.facts {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+  color: var(--ink-3);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+.fact,
+.high {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1875rem;
+  white-space: nowrap;
+}
+
+.high {
+  color: var(--priority-high);
+  font-weight: var(--weight-medium);
+}

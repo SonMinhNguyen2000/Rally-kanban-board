@@ -1,0 +1,20 @@
+.avatar {
+  width: var(--avatar-sm);
+  height: var(--avatar-sm);
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--solid);
+  color: var(--on);
+  font-size: var(--text-xs);
+  line-height: 1;
+  font-weight: var(--weight-semibold);
+  user-select: none;
+}
+
+.large {
+  width: var(--avatar-md);
+  height: var(--avatar-md);
+}

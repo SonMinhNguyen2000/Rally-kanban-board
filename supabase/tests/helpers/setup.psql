@@ -1,0 +1,83 @@
+-- Shared setup, included by every test file with \ir after its BEGIN.
+-- The .psql extension keeps pg_prove from running this as a test of its own.
+--
+-- Leaves two signed-in guests with data, and the session acting as B. Each test file sets
+-- the identity it needs before its first check.
+
+create extension if not exists pgtap with schema extensions;
+
+select no_plan();
+
+-- Holds the helpers below. Rolled back with everything else at the end of each file.
+create schema tests;
+grant usage on schema tests to public;
+
+-- Becomes a signed-in guest, the way PostgREST does for a request with a JWT.
+create function tests.as_user(uid uuid) returns void language plpgsql as $$
+begin
+  perform set_config('role', 'authenticated', true);
+  perform set_config('request.jwt.claims',
+    json_build_object('sub', uid, 'role', 'authenticated', 'is_anonymous', true)::text, true);
+end;
+$$;
+
+-- Becomes the anon role: the anon key with no signed-in session.
+create function tests.as_anon() returns void language plpgsql as $$
+begin
+  perform set_config('role', 'anon', true);
+  perform set_config('request.jwt.claims', json_build_object('role', 'anon')::text, true);
+end;
+$$;
+
+-- Returns to the migration owner, to arrange state that a client could not.
+create function tests.as_admin() returns void language plpgsql as $$
+begin
+  perform set_config('role', 'postgres', true);
+  perform set_config('request.jwt.claims', '', true);
+end;
+$$;
+
+-- Rows touched by a statement. RLS filters silently, so 0 is the expected denial.
+create function tests.affected(stmt text) returns integer language plpgsql as $$
+declare
+  n integer;
+begin
+  execute stmt;
+  get diagnostics n = row_count;
+  return n;
+end;
+$$;
+
+grant execute on all functions in schema tests to public;
+
+-- The two guests. A is aaaaaaaa-..., B is bbbbbbbb-...
+insert into auth.users (id, aud, role, email, is_anonymous, created_at, updated_at)
+values
+  ('aaaaaaaa-0000-4000-8000-000000000000', 'authenticated', 'authenticated', null, true, now(), now()),
+  ('bbbbbbbb-0000-4000-8000-000000000000', 'authenticated', 'authenticated', null, true, now(), now());
+
+-- A owns one of everything. B owns a task, a member and a label, with B's label deliberately
+-- named the same as A's. Rows go through each user's own session, so policies are exercised.
+select tests.as_user('aaaaaaaa-0000-4000-8000-000000000000');
+
+insert into public.tasks (id, title, description) values
+  ('aaaaaaaa-0000-4000-8000-000000000001', 'A task', 'A description');
+insert into public.team_members (id, name, color) values
+  ('aaaaaaaa-0000-4000-8000-000000000002', 'A member', 'rose');
+insert into public.labels (id, name, color) values
+  ('aaaaaaaa-0000-4000-8000-000000000003', 'A label', 'cobalt');
+insert into public.task_assignees (task_id, member_id) values
+  ('aaaaaaaa-0000-4000-8000-000000000001', 'aaaaaaaa-0000-4000-8000-000000000002');
+insert into public.task_labels (task_id, label_id) values
+  ('aaaaaaaa-0000-4000-8000-000000000001', 'aaaaaaaa-0000-4000-8000-000000000003');
+insert into public.comments (id, task_id, body) values
+  ('aaaaaaaa-0000-4000-8000-000000000004', 'aaaaaaaa-0000-4000-8000-000000000001', 'A comment');
+
+select tests.as_user('bbbbbbbb-0000-4000-8000-000000000000');
+
+insert into public.tasks (id, title) values
+  ('bbbbbbbb-0000-4000-8000-000000000001', 'B task');
+insert into public.team_members (id, name) values
+  ('bbbbbbbb-0000-4000-8000-000000000002', 'B member');
+insert into public.labels (id, name) values
+  ('bbbbbbbb-0000-4000-8000-000000000003', 'A label'); -- same name as A's, which must be allowed

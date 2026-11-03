@@ -1,0 +1,26 @@
+.due {
+  min-height: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.soon,
+.overdue {
+  padding: 0 var(--space-1-5);
+  border-radius: var(--radius-xs);
+}
+
+.soon {
+  background: var(--warning-tint);
+  color: var(--warning-ink);
+}
+
+.overdue {
+  background: var(--danger-tint);
+  color: var(--danger-ink);
+}

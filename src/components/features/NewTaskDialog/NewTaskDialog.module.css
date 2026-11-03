@@ -1,0 +1,83 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1-5);
+}
+
+.field > label,
+.fieldLabel {
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  font-weight: var(--weight-medium);
+}
+
+.optional {
+  color: var(--ink-3);
+  font-weight: var(--weight-regular);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4) var(--space-3);
+}
+
+/* A picker trigger that matches the text fields beside it. */
+.select {
+  width: 100%;
+  min-height: var(--control-lg);
+  padding: 0.4375rem var(--space-2-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--line-3);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  color: var(--ink-1);
+  text-align: left;
+  user-select: auto;
+  transition: border-color var(--dur-hover) var(--ease-hover);
+}
+
+.select:focus-visible {
+  border-color: var(--focus-ring);
+  outline: 1px solid var(--focus-ring);
+  outline-offset: 0;
+}
+
+.selectText {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.formError {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--danger-tint);
+  color: var(--danger-ink);
+  font-size: var(--text-sm);
+  line-height: var(--leading-sm);
+}
+
+@media (max-width: 479px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

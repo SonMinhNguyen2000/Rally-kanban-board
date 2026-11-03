@@ -1,0 +1,24 @@
+.colorTrigger {
+  width: var(--control-lg);
+  height: var(--control-md);
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  place-items: center;
+  border-radius: var(--radius-sm);
+}
+
+@media (hover: hover) {
+  .colorTrigger:hover {
+    background: var(--surface-hover);
+  }
+}
+
+@media (pointer: coarse) {
+  .colorTrigger {
+    min-width: var(--touch-min);
+    min-height: var(--touch-min);
+  }
+}

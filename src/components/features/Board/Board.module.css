@@ -1,0 +1,45 @@
+.board {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(var(--lane-min), 1fr));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+/* Below 720px each lane is nearly a full screen, and the next one peeks in. */
+@media (max-width: 719px) {
+  .board {
+    grid-template-columns: repeat(4, calc(100vw - var(--space-12)));
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0;
+  }
+}
+
+.dragging {
+  cursor: grabbing;
+}
+
+.dragging * {
+  cursor: grabbing;
+}
+
+/* Dragging to an off-screen lane is impossible on a phone, so lanes come to the card. */
+.tray {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: var(--z-drag-tray);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-1);
+  padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom));
+  background: var(--surface-overlay);
+  box-shadow: var(--shadow-menu);
+  animation: tray-in var(--dur-popover) var(--ease-out);
+}
+
+@keyframes tray-in {
+  from {
+    transform: translateY(100%);
+  }
+}

@@ -1,0 +1,20 @@
+.input {
+  width: 100%;
+  min-height: var(--control-lg);
+  padding: 0.4375rem var(--space-2-5);
+  border: 1px solid var(--line-3);
+  border-radius: var(--radius-md);
+  background: var(--surface-card);
+  color: var(--ink-1);
+  transition: border-color var(--dur-hover) var(--ease-hover);
+}
+
+.input:focus {
+  border-color: var(--focus-ring);
+  outline: 1px solid var(--focus-ring);
+  outline-offset: 0;
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--danger);
+}

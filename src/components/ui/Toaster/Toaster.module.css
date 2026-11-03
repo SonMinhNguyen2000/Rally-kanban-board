@@ -1,0 +1,58 @@
+.toaster {
+  position: fixed;
+  right: var(--space-4);
+  bottom: calc(var(--space-4) + env(safe-area-inset-bottom));
+  z-index: var(--z-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: min(24rem, calc(100vw - var(--space-8)));
+  pointer-events: none;
+}
+
+.toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-2) var(--space-2) var(--space-3);
+  border-radius: var(--radius-lg);
+  background: var(--surface-overlay);
+  box-shadow: var(--shadow-toast);
+  /* A transition rather than keyframes, so toasts arriving quickly retarget instead of restarting. */
+  transition:
+    opacity var(--dur-toast) var(--ease-out),
+    transform var(--dur-toast) var(--ease-out);
+}
+
+@starting-style {
+  .toast {
+    opacity: 0;
+  }
+}
+
+/* The travel is dropped for reduced motion. The fade stays, so arrival is still readable. */
+@media (prefers-reduced-motion: no-preference) {
+  @starting-style {
+    .toast {
+      transform: translateY(8px);
+    }
+  }
+}
+
+.toast > span {
+  padding-block: var(--space-1);
+}
+
+.danger > span {
+  color: var(--danger-ink);
+}
+
+@media (max-width: 719px) {
+  .toaster {
+    right: var(--space-4);
+    left: var(--space-4);
+    width: auto;
+  }
+}

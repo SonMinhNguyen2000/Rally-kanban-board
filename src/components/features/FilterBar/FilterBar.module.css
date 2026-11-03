@@ -1,0 +1,131 @@
+.filterbar {
+  flex: none;
+  min-height: var(--filterbar-h);
+  padding: var(--space-1-5) var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-bottom: 1px solid var(--line-2);
+}
+
+.filterRow {
+  display: flex;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.search {
+  width: 15rem;
+  height: var(--control-md);
+  padding: 0 var(--space-2-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  border: 1px solid var(--line-3);
+  border-radius: var(--radius-sm);
+  background: var(--surface-card);
+  color: var(--ink-3);
+  font-size: var(--text-md);
+  transition: border-color var(--dur-hover) var(--ease-hover);
+}
+
+.search:focus-within {
+  border-color: var(--focus-ring);
+  outline: 1px solid var(--focus-ring);
+}
+
+.search input {
+  flex: 1;
+  width: 100%;
+  color: var(--ink-1);
+}
+
+.search input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.filterControls {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.filterTrigger,
+.filtersToggle {
+  height: var(--control-md);
+  padding: 0 var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+  flex: none;
+  border-radius: var(--radius-sm);
+  color: var(--ink-2);
+  font-size: var(--text-md);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color var(--dur-hover) var(--ease-hover),
+    color var(--dur-hover) var(--ease-hover),
+    transform var(--dur-press) var(--ease-out);
+}
+
+.filterTrigger:active,
+.filtersToggle:active {
+  transform: scale(var(--press-scale));
+}
+
+@media (hover: hover) {
+  .filterTrigger:hover,
+  .filtersToggle:hover {
+    background: var(--surface-hover);
+    color: var(--ink-1);
+  }
+}
+
+.filtersToggle {
+  display: none;
+}
+
+.activeChips {
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-left: var(--space-1);
+}
+
+@media (max-width: 719px) {
+  .filterbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search {
+    flex: 1;
+    width: auto;
+  }
+
+  .filtersToggle {
+    display: inline-flex;
+  }
+
+  .filterControls {
+    display: none;
+    flex-wrap: wrap;
+  }
+
+  .filterControlsOpen {
+    display: flex;
+  }
+}
+
+@media (pointer: coarse) {
+  .search,
+  .filterTrigger,
+  .filtersToggle {
+    height: var(--touch-min);
+  }
+}

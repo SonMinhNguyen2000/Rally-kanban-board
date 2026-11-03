@@ -1,0 +1,4 @@
+.textArea {
+  composes: input from '../TextInput/TextInput.module.css';
+  display: block;
+}

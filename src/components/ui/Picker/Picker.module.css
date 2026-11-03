@@ -1,0 +1,98 @@
+.menu {
+  position: fixed;
+  z-index: var(--z-popover);
+  min-width: 12rem;
+  max-width: min(20rem, calc(100vw - var(--space-4)));
+  max-height: min(20rem, calc(100dvh - var(--space-4)));
+  overflow-y: auto;
+  padding: var(--space-1);
+  border-radius: var(--radius-md);
+  background: var(--surface-overlay);
+  color: var(--ink-1);
+  box-shadow: var(--shadow-menu);
+  transform-origin: top left;
+  animation: menu-in var(--dur-popover) var(--ease-out);
+}
+
+.triggerContent {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1-5);
+}
+
+.triggerCaret {
+  flex: none;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+/* Grows out of the trigger, whichever side of it the menu opened on. */
+.menu[data-placement='above'] {
+  transform-origin: bottom left;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.item {
+  width: 100%;
+  min-height: var(--control-md);
+  padding: var(--space-1) var(--space-2);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-md);
+  text-align: left;
+  user-select: auto;
+}
+
+.item:focus-visible {
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .item:hover {
+    background: var(--surface-hover);
+  }
+}
+
+@media (pointer: coarse) {
+  .item {
+    min-height: var(--touch-min);
+  }
+}
+
+.itemLabel {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.check {
+  visibility: hidden;
+  color: var(--ink-1);
+}
+
+.checkOn {
+  visibility: visible;
+}
+
+.empty {
+  padding: var(--space-2);
+  color: var(--ink-3);
+  font-size: var(--text-md);
+}
+
+.footer {
+  margin-top: var(--space-1);
+  padding-top: var(--space-1);
+  border-top: 1px solid var(--line-1);
+}

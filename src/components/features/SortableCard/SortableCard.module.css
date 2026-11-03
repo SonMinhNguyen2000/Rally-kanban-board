@@ -1,0 +1,4 @@
+.cardItem {
+  flex: none;
+  min-width: 0;
+}

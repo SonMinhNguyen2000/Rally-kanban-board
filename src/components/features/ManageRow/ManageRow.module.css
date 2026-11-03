@@ -1,0 +1,29 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.rowInput {
+  flex: 1;
+  height: var(--control-md);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+}
+
+.rowInput:focus {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -2px;
+}
+
+@media (hover: hover) {
+  .rowInput:hover:not(:focus) {
+    background: var(--surface-hover);
+  }
+}
+
+@media (pointer: coarse) {
+  .rowInput {
+    min-height: var(--touch-min);
+  }
+}

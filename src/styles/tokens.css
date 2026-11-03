@@ -1,0 +1,282 @@
+:root {
+  color-scheme: light dark;
+
+  /* Type ------------------------------------------------------------------ */
+  --font-ui: "Schibsted Grotesk Variable", "Schibsted Grotesk", ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  --text-xs: 0.6875rem;  /* 11px  avatar initials only. Nothing goes smaller. */
+  --text-sm: 0.75rem;    /* 12px  meta, chips, timestamps */
+  --text-md: 0.8125rem;  /* 13px  controls, lane names, body in dense rows */
+  --text-base: 0.875rem; /* 14px  card titles, descriptions, comments */
+  --text-lg: 0.9375rem;  /* 15px  board name, stat figures */
+  --text-xl: 1.25rem;    /* 20px  task title in the panel */
+  --text-2xl: 1.5rem;    /* 24px  first-run and failure headings */
+
+  --leading-xs: 0.875rem; /* 14px */
+  --leading-sm: 1rem;     /* 16px */
+  --leading-md: 1.125rem; /* 18px */
+  --leading-base: 1.25rem;/* 20px */
+  --leading-lg: 1.375rem; /* 22px */
+  --leading-xl: 1.75rem;  /* 28px */
+  --leading-2xl: 2rem;    /* 32px */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+
+  --tracking-tight: -0.011em; /* titles at 15px and up */
+
+  /* Spacing, 4px base ------------------------------------------------------ */
+  --space-0-5: 0.125rem; /* 2 */
+  --space-1: 0.25rem;    /* 4 */
+  --space-1-5: 0.375rem; /* 6 */
+  --space-2: 0.5rem;     /* 8 */
+  --space-2-5: 0.625rem; /* 10 */
+  --space-3: 0.75rem;    /* 12 */
+  --space-4: 1rem;       /* 16 */
+  --space-5: 1.25rem;    /* 20 */
+  --space-6: 1.5rem;     /* 24 */
+  --space-8: 2rem;       /* 32 */
+  --space-10: 2.5rem;    /* 40 */
+  --space-12: 3rem;      /* 48 */
+
+  /* Layout metrics --------------------------------------------------------- */
+  --gutter: 1rem;           /* one edge for chrome, lane headers and cards */
+  --topbar-h: 3.25rem;      /* 52 */
+  --filterbar-h: 2.75rem;   /* 44 */
+  --lane-min: 17.5rem;      /* 280 */
+  --lane-header-h: 2.75rem; /* 44 */
+  --panel-w: 33.75rem;      /* 540 */
+  --control-sm: 1.5rem;     /* 24  chip remove, inline icon */
+  --control-md: 1.875rem;   /* 30  toolbar */
+  --control-lg: 2.25rem;    /* 36  form fields and dialog buttons */
+  --touch-min: 2.75rem;     /* 44  anything tappable on coarse pointers */
+  --avatar-sm: 1.5rem;      /* 24  cards */
+  --avatar-md: 1.75rem;     /* 28  team stack, timeline, panel */
+
+  /* Radii: tight, stepping down when nested -------------------------------- */
+  --radius-xs: 0.1875rem; /* 3  chips */
+  --radius-sm: 0.3125rem; /* 5  controls */
+  --radius-md: 0.4375rem; /* 7  cards, inputs, menus */
+  --radius-lg: 0.625rem;  /* 10 dialogs, toasts */
+  --radius-full: 999px;   /* avatars only */
+
+  /* Motion ----------------------------------------------------------------- */
+  --dur-press: 90ms;    /* :active scale */
+  --dur-hover: 120ms;   /* colour and border changes */
+  --dur-popover: 140ms; /* menus, tooltips */
+  --dur-lift: 140ms;    /* card pick-up */
+  --dur-reorder: 200ms; /* neighbours making room */
+  --dur-drop: 220ms;    /* overlay settling into its slot */
+  --dur-toast: 240ms;
+  --dur-panel-in: 280ms;
+  --dur-panel-out: 200ms;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);      /* entrances, drop, reorder */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);  /* on-screen movement */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);   /* panel, bottom sheets */
+  --ease-hover: ease;                              /* colour only */
+
+  --press-scale: 0.97;
+  --lift-scale: 1.025;
+  --lift-rotate: 1.25deg;
+
+  /* Layers ----------------------------------------------------------------- */
+  --z-lane-header: 10;
+  --z-chrome: 20;
+  --z-drag-tray: 30;
+  --z-scrim: 40;
+  --z-panel: 50;
+  --z-popover: 60;
+  --z-dialog: 70;
+  --z-drag: 80;
+  --z-toast: 90;
+  --z-tooltip: 100;
+
+  /* ---- Colour: light-dark(light value, dark value) ----------------------- */
+
+  /* Surfaces */
+  --surface-ground: light-dark(#ffffff, #10132b);  /* the board itself */
+  --surface-card: light-dark(#ffffff, #191d3a);     /* cards, inputs */
+  --surface-overlay: light-dark(#ffffff, #20264a);  /* panel, menus, dialogs, toasts */
+  --surface-hover: light-dark(#eceeff, #292f58);    /* quiet controls on ground */
+  --surface-pressed: light-dark(#e2e5ff, #343b6b);
+  --surface-card-hover: light-dark(#fafaff, #202547);
+  --surface-skeleton: light-dark(#e6e9ff, #292f58);
+  --scrim: light-dark(rgb(43 48 89 / 0.2), rgb(4 6 22 / 0.58));
+  --surface-ground-gradient:
+    linear-gradient(135deg, rgb(255 164 211 / 0.38), transparent 46%),
+    linear-gradient(315deg, rgb(255 218 112 / 0.3), transparent 52%),
+    linear-gradient(25deg, rgb(255 244 211 / 0.34), transparent 62%);
+
+  /* Ink */
+  --ink-1: light-dark(#20243a, #f1f3ff); /* titles, values */
+  --ink-2: light-dark(#4d556f, #c0c7e5); /* secondary text, resting icons */
+  --ink-3: light-dark(#59627f, #9ea8ce); /* meta, placeholders. The lightest ink allowed for words. */
+  --ink-on-action: light-dark(#ffffff, #10132b);
+
+  /* Lines */
+  --line-1: light-dark(#e6e8f5, #2a3158); /* rules inside a surface */
+  --line-2: light-dark(#d5d9ee, #3b4470); /* lane rules, card edges, quiet control edges */
+  --line-3: light-dark(#8593c6, #7683b5); /* form field edges, unchecked boxes: 3:1 on ground and card */
+
+  /* The one filled action */
+  --action: light-dark(#5756d9, #9295ff);
+  --action-hover: light-dark(#4544bf, #aaabff);
+  --action-pressed: light-dark(#3c3ba8, #7d80eb);
+
+  /* Accent: focus, selection, drop targets. Shares its hue with Done. */
+  --accent: light-dark(#5756d9, #a4a6ff);
+  --accent-hover: light-dark(#4544bf, #c0c1ff);
+  --accent-tint: light-dark(#e7e8ff, #343b6b);
+  --accent-wash: light-dark(#f5f5ff, #252b52);    /* lane under a dragged card */
+  --accent-slot: light-dark(#d9dcff, #414b7b);    /* drop placeholder fill */
+  --accent-ink: light-dark(#37379d, #e4e5ff);     /* text on accent-tint, wash, slot */
+  --focus-ring: light-dark(#5756d9, #a4a6ff);
+  --selection: light-dark(#cdd1ff, #4a5488);
+
+  /* Semantic */
+  --danger: light-dark(#d94368, #ff7998);
+  --danger-hover: light-dark(#bd2f55, #ff93ad);
+  --danger-tint: light-dark(#ffe0e8, #5a2945);
+  --danger-ink: light-dark(#a92249, #ff9db3);
+  --on-danger: light-dark(#ffffff, #241022);
+  --warning: light-dark(#bc7200, #ffc45c);
+  --warning-tint: light-dark(#fff0cc, #5a431f);
+  --warning-ink: light-dark(#915600, #ffd178);
+  --warning-line: light-dark(#d99616, #d99b2b);
+  --success: light-dark(#148b72, #55d8b7);
+  --success-tint: light-dark(#d7f4ed, #1e4b4d);
+  --success-ink: light-dark(#0d715d, #70e3c5);
+
+  /* Status: the mark and the load rule */
+  --status-todo: light-dark(#6f6fe5, #a4a6ff);
+  --status-progress: light-dark(#2197bb, #59d2ed);
+  --status-review: light-dark(#9a5bd0, #c28cff);
+  --status-done: light-dark(#20a581, #55d8b7);
+  --status-todo-ink: light-dark(#5556bd, #b8baff);
+  --status-progress-ink: light-dark(#187e9f, #72dcf1);
+  --status-review-ink: light-dark(#7840aa, #d3a8ff);
+  --status-done-ink: light-dark(#147a64, #70e3c5);
+  --status-off: light-dark(#dfe2f3, #3d4673); /* unfilled status bars and rule track */
+
+  /* Priority */
+  --priority-high: light-dark(#ad3e26, #ff9b62);
+  --priority-normal: light-dark(#596280, #b7c0e0);
+  --priority-low: light-dark(#596280, #b7c0e0);
+
+  /* Buttons: quiet surfaces, crisp edges, and a soft lift on hover */
+  --button-border-action: light-dark(#5756d9, #9295ff);
+  --button-border-danger: light-dark(#bd2f55, #ff93ad);
+  --button-border-outline: light-dark(#c3c8e3, #59658f);
+  --button-face-outline: light-dark(#ffffff, #252b52);
+  --button-hover-outline: light-dark(#f0f1ff, #303864);
+  --button-shadow: light-dark(rgb(55 57 157 / 0.13), rgb(0 0 0 / 0.3));
+  --button-shadow-hover: light-dark(rgb(55 57 157 / 0.2), rgb(0 0 0 / 0.45));
+  /* Shadows: only for what floats */
+  --shadow-menu:
+    0 1px 2px light-dark(rgb(44 30 13 / 0.06), transparent),
+    0 6px 20px light-dark(rgb(44 30 13 / 0.12), transparent),
+    0 0 0 1px light-dark(transparent, rgb(255 255 255 / 0.06)),
+    0 8px 24px light-dark(transparent, rgb(14 11 8 / 0.5));
+  --shadow-toast:
+    0 1px 2px light-dark(rgb(44 30 13 / 0.08), transparent),
+    0 8px 24px light-dark(rgb(44 30 13 / 0.16), transparent),
+    0 0 0 1px light-dark(transparent, rgb(255 255 255 / 0.07)),
+    0 10px 28px light-dark(transparent, rgb(14 11 8 / 0.55));
+  --shadow-panel:
+    0 0 1px light-dark(rgb(44 30 13 / 0.12), transparent),
+    -12px 0 40px light-dark(rgb(44 30 13 / 0.14), transparent),
+    0 0 0 1px light-dark(transparent, rgb(255 255 255 / 0.06)),
+    -12px 0 44px light-dark(transparent, rgb(14 11 8 / 0.55));
+  --shadow-drag:
+    0 1px 2px light-dark(rgb(44 30 13 / 0.1), transparent),
+    0 6px 12px light-dark(rgb(44 30 13 / 0.1), transparent),
+    0 18px 36px light-dark(rgb(44 30 13 / 0.18), transparent),
+    0 0 0 1px light-dark(transparent, rgb(255 255 255 / 0.08)),
+    0 8px 16px light-dark(transparent, rgb(14 11 8 / 0.4)),
+    0 20px 40px light-dark(transparent, rgb(14 11 8 / 0.5));
+
+  /* Label and avatar palette ------------------------------------------------
+     tint + ink     : chips, filter chips
+     solid + on     : avatars, label swatches
+     A label or member stores the name only ("rose"), never a hex value.        */
+  --c-rose-tint: light-dark(#f2d2d8, #48292c);
+  --c-rose-ink: light-dark(#7a1f36, #e699ac);
+  --c-rose-solid: light-dark(#a32947, #d86481);
+  --c-rose-on: light-dark(#fcfaf8, #1c1712);
+  --c-rust-tint: light-dark(#f6dacd, #4c3021);
+  --c-rust-ink: light-dark(#863613, #efac8f);
+  --c-rust-solid: light-dark(#b34719, #e78155);
+  --c-rust-on: light-dark(#fcfaf8, #1c1712);
+  --c-ochre-tint: light-dark(#f8e8cb, #4d3d20);
+  --c-ochre-ink: light-dark(#8a610f, #f2d08c);
+  --c-ochre-solid: light-dark(#976b11, #ecb851);
+  --c-ochre-on: light-dark(#fcfaf8, #1c1712);
+  --c-olive-tint: light-dark(#ebf0d2, #414326);
+  --c-olive-ink: light-dark(#607321, #d2e29c);
+  --c-olive-solid: light-dark(#667b24, #bbd369);
+  --c-olive-on: light-dark(#fcfaf8, #1c1712);
+  --c-moss-tint: light-dark(#d6eedf, #2f4232);
+  --c-moss-ink: light-dark(#26734b, #9fdfbe);
+  --c-moss-solid: light-dark(#2b8255, #6ecf9c);
+  --c-moss-on: light-dark(#fcfaf8, #1c1712);
+  --c-teal-tint: light-dark(#d8edeb, #30413c);
+  --c-teal-ink: light-dark(#2a6f6d, #a3dcda);
+  --c-teal-solid: light-dark(#307e7b, #72cac7);
+  --c-teal-on: light-dark(#fcfaf8, #1c1712);
+  --c-azure-tint: light-dark(#d4e8ef, #2d3c40);
+  --c-azure-ink: light-dark(#1f607a, #99d0e6);
+  --c-azure-solid: light-dark(#277c9d, #64b7d8);
+  --c-azure-on: light-dark(#fcfaf8, #1c1712);
+  --c-cobalt-tint: light-dark(#d0e5f3, #293944);
+  --c-cobalt-ink: light-dark(#135686, #8fc7ef);
+  --c-cobalt-solid: light-dark(#1973b3, #55aae7);
+  --c-cobalt-on: light-dark(#fcfaf8, #1c1712);
+  --c-plum-tint: light-dark(#e5d8e9, #3c2e3b);
+  --c-plum-ink: light-dark(#513069, #c3a8d7);
+  --c-plum-solid: light-dark(#6c408c, #a47ac2);
+  --c-plum-on: light-dark(#fcfaf8, #1c1712);
+  --c-graphite-tint: light-dark(#e8e2db, #3f372e);
+  --c-graphite-ink: light-dark(#5a4e3f, #cbc1b4);
+  --c-graphite-solid: light-dark(#786854, #b0a08d);
+  --c-graphite-on: light-dark(#fcfaf8, #1c1712);
+}
+
+/* An explicit choice overrides the system. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-ground-gradient:
+    linear-gradient(120deg, rgb(104 101 255 / 0.16), transparent 44%),
+    linear-gradient(305deg, rgb(66 214 210 / 0.11), transparent 58%);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --surface-ground-gradient: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --surface-ground-gradient:
+      linear-gradient(120deg, rgb(104 101 255 / 0.16), transparent 44%),
+      linear-gradient(305deg, rgb(66 214 210 / 0.11), transparent 58%);
+  }
+}
+
+/* Reduced motion: movement goes, fades and colour stay. base.css handles the
+   blanket rule; these make any component that reads the tokens safe too. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-lift: 0ms;
+    --dur-reorder: 0ms;
+    --dur-drop: 0ms;
+    --dur-press: 0ms;
+    --dur-panel-in: 120ms;
+    --dur-panel-out: 80ms;
+    --press-scale: 1;
+    --lift-scale: 1;
+    --lift-rotate: 0deg;
+  }
+}

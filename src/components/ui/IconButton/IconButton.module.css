@@ -1,0 +1,31 @@
+.iconButton {
+  width: var(--control-md);
+  height: var(--control-md);
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--radius-sm);
+  color: var(--ink-2);
+  transition:
+    background-color var(--dur-hover) var(--ease-hover),
+    color var(--dur-hover) var(--ease-hover),
+    transform var(--dur-press) var(--ease-out);
+}
+
+.iconButton:active:not(:disabled) {
+  transform: scale(var(--press-scale));
+}
+
+@media (hover: hover) {
+  .iconButton:hover:not(:disabled) {
+    background: var(--surface-hover);
+    color: var(--ink-1);
+  }
+}
+
+@media (pointer: coarse) {
+  .iconButton {
+    min-height: var(--touch-min);
+    min-width: var(--touch-min);
+  }
+}

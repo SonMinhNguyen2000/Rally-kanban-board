@@ -1,0 +1,23 @@
+.section + .section {
+  margin-top: var(--space-6);
+}
+
+.section h3 {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-md);
+  line-height: var(--leading-md);
+  font-weight: var(--weight-medium);
+}
+
+.hint {
+  margin-bottom: var(--space-2);
+  color: var(--ink-3);
+  font-size: var(--text-md);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-0-5);
+  margin-bottom: var(--space-2);
+}

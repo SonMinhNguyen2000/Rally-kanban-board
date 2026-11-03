@@ -1,0 +1,20 @@
+.mark rect {
+  fill: var(--status-off);
+  transition: fill var(--dur-hover) var(--ease-hover);
+}
+
+.mark[data-status='todo'] rect[data-on] {
+  fill: var(--status-todo);
+}
+
+.mark[data-status='in_progress'] rect[data-on] {
+  fill: var(--status-progress);
+}
+
+.mark[data-status='in_review'] rect[data-on] {
+  fill: var(--status-review);
+}
+
+.mark[data-status='done'] rect[data-on] {
+  fill: var(--status-done);
+}

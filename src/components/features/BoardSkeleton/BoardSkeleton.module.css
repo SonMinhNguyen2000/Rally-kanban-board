@@ -1,0 +1,66 @@
+.app {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.bar,
+.filter {
+  flex: none;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.bar {
+  height: var(--topbar-h);
+}
+
+.filter {
+  height: var(--filterbar-h);
+}
+
+/* The delay keeps fast connections from seeing a flash. */
+.board {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(var(--lane-min), 1fr));
+  overflow: hidden;
+  animation: skeleton-in var(--dur-popover) var(--ease-out) 150ms backwards;
+}
+
+@keyframes skeleton-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.lane {
+  padding: 0 var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  border-right: 1px solid var(--line-2);
+}
+
+.lane:last-child {
+  border-right: 0;
+}
+
+.head {
+  height: var(--lane-header-h);
+  margin-bottom: var(--space-3);
+  display: flex;
+  align-items: center;
+}
+
+.card {
+  border-radius: var(--radius-md);
+  background: var(--surface-skeleton);
+}
+
+@media (max-width: 719px) {
+  .board {
+    grid-template-columns: repeat(4, calc(100vw - var(--space-12)));
+  }
+}
