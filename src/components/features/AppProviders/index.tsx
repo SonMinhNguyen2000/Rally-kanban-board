@@ -35,16 +35,18 @@ export function AppProviders({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const saved = window.localStorage.getItem('rally-theme');
-    if (saved === 'light' || saved === 'dark' || saved === 'system') setThemeState(saved);
+    if (saved === 'light' || saved === 'dark' || saved === 'system' || saved === 'glass' || saved === 'pastel') {
+      setThemeState(saved);
+    }
   }, []);
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    /** Sets the page to the chosen theme, resolving "system" from the operating system. */
+    /** Sets the page to the chosen theme, resolving "system" from the operating system. Only dark is dark. */
     const applyTheme = () => {
       const resolved = theme === 'system' ? (media.matches ? 'dark' : 'light') : theme;
       document.documentElement.dataset.theme = resolved;
-      document.documentElement.style.colorScheme = resolved;
+      document.documentElement.style.colorScheme = resolved === 'dark' ? 'dark' : 'light';
     };
     applyTheme();
     media.addEventListener('change', applyTheme);

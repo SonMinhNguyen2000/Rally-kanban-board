@@ -8,6 +8,7 @@
   padding: var(--space-1);
   border-radius: var(--radius-md);
   background: var(--surface-overlay);
+  backdrop-filter: var(--glass-blur);
   color: var(--ink-1);
   box-shadow: var(--shadow-menu);
   transform-origin: top left;

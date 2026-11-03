@@ -2,7 +2,13 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: repeat(4, minmax(var(--lane-min), 1fr));
+  /* Lanes give up the room the gaps and padding take, so every theme overflows at the same width. */
+  grid-template-columns: repeat(
+    4,
+    minmax(calc(var(--lane-min) - (3 * var(--board-gap) + 2 * var(--board-pad)) / 4), 1fr)
+  );
+  gap: var(--board-gap);
+  padding: var(--board-pad);
   overflow-x: auto;
   overscroll-behavior-x: contain;
 }
@@ -12,7 +18,7 @@
   .board {
     grid-template-columns: repeat(4, calc(100vw - var(--space-12)));
     scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0;
+    scroll-padding-inline: var(--board-pad);
   }
 }
 
@@ -34,6 +40,7 @@
   gap: var(--space-1);
   padding: var(--space-2) var(--space-2) calc(var(--space-2) + env(safe-area-inset-bottom));
   background: var(--surface-overlay);
+  backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-menu);
   animation: tray-in var(--dur-popover) var(--ease-out);
 }

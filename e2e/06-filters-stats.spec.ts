@@ -36,7 +36,7 @@ async function choose(page: Page, filter: string, names: string[]) {
  * @returns A locator for the figure's value.
  */
 const stat = (page: Page, name: string) =>
-  page.locator('dl[aria-label="Board statistics"] > div').filter({ hasText: name }).locator('dd');
+  page.getByRole('group', { name: 'Board statistics' }).getByRole('button', { name }).locator('[data-tnum]');
 
 test.describe('filters and stats', () => {
   test.beforeEach(async ({ context, page }) => {
@@ -96,11 +96,25 @@ test.describe('filters and stats', () => {
   });
 
   test('stats count the whole board, whatever the filters show', async ({ page }) => {
-    await expect(stat(page, 'total')).toHaveText('4');
+    await expect(stat(page, 'task')).toHaveText('4');
     await expect(stat(page, 'completed')).toHaveText('1');
     await expect(stat(page, 'overdue')).toHaveText('1');
     await page.getByRole('searchbox').fill('docs');
-    await expect(stat(page, 'total')).toHaveText('4');
+    await expect(stat(page, 'task')).toHaveText('4');
+  });
+
+  test('the stats show their tasks on the board, and pressing one again shows all', async ({ page }) => {
+    const button = (name: string) => page.getByRole('group', { name: 'Board statistics' }).getByRole('button', { name });
+    const cards = page.locator('[data-task-id]');
+    await expect(cards).toHaveCount(4);
+    await button('overdue').click();
+    await expect(button('overdue')).toHaveAttribute('aria-pressed', 'true');
+    await expect(cards).toHaveCount(1);
+    await button('completed').click();
+    await expect(cards).toHaveCount(1);
+    await button('completed').click();
+    await expect(button('task')).toHaveAttribute('aria-pressed', 'true');
+    await expect(cards).toHaveCount(4);
   });
 
   test('flags overdue and due soon, and never flags finished work', async ({ page }) => {

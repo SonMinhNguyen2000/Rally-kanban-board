@@ -135,6 +135,8 @@ export function BoardScreen({ uid }: { uid: string }) {
       <div className={styles.main} inert={Boolean(selected) && !closing && !isWide}>
         <TopBar
           tasks={allTasks}
+          view={filters.view}
+          onViewChange={(view) => setFilters({ ...filters, view })}
           connected={connected}
           primaryAction={!isFirstRun}
           onNewTask={() => setNewTaskStatus('todo')}

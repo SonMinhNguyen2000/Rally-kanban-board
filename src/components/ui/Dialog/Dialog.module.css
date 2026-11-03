@@ -6,6 +6,7 @@
   border: 0;
   border-radius: var(--radius-lg);
   background: var(--surface-overlay);
+  backdrop-filter: var(--glass-blur);
   color: var(--ink-1);
   box-shadow: var(--shadow-toast);
   overflow: hidden;

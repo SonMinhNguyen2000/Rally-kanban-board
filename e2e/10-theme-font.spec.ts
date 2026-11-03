@@ -34,6 +34,32 @@ test.describe('theme', () => {
     expect(await page.evaluate(() => localStorage.getItem('rally-theme'))).toBe('system');
   });
 
+  test('the theme menu selects and remembers glass, which stays light on a dark system', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await openBoard(page);
+    const html = page.locator('html');
+    await page.getByRole('button', { name: 'Theme: system' }).click();
+    await page.getByRole('menuitemradio', { name: 'Glass' }).click();
+    await expect(html).toHaveAttribute('data-theme', 'glass');
+    await expect(html).toHaveCSS('color-scheme', 'light');
+    await page.reload();
+    await expect(html).toHaveAttribute('data-theme', 'glass');
+    await expect(html).toHaveCSS('color-scheme', 'light');
+  });
+
+  test('the theme menu selects and remembers pastel, which stays light on a dark system', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await openBoard(page);
+    const html = page.locator('html');
+    await page.getByRole('button', { name: 'Theme: system' }).click();
+    await page.getByRole('menuitemradio', { name: 'Pastel' }).click();
+    await expect(html).toHaveAttribute('data-theme', 'pastel');
+    await expect(html).toHaveCSS('color-scheme', 'light');
+    await page.reload();
+    await expect(html).toHaveAttribute('data-theme', 'pastel');
+    await expect(html).toHaveCSS('color-scheme', 'light');
+  });
+
   test('follows the system with no saved choice', async ({ browser }) => {
     const context = await browser.newContext({ storageState: guest, colorScheme: 'dark', baseURL: `http://127.0.0.1:${process.env.E2E_PORT ?? '3000'}` });
     const page = await context.newPage();

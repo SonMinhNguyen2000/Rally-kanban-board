@@ -242,6 +242,23 @@
   --c-graphite-ink: light-dark(#5a4e3f, #cbc1b4);
   --c-graphite-solid: light-dark(#786854, #b0a08d);
   --c-graphite-on: light-dark(#fcfaf8, #1c1712);
+
+  /* Material: only the glass and pastel themes change these. The defaults leave a component as it was. */
+  --glass-blur: none;                    /* what floats over content */
+  --surface-chrome: transparent;         /* top bar and filter bar */
+  --surface-lane: transparent;
+  --surface-lane-todo: var(--surface-lane);
+  --surface-lane-progress: var(--surface-lane);
+  --surface-lane-review: var(--surface-lane);
+  --surface-lane-done: var(--surface-lane);
+  --surface-lifted: var(--surface-card); /* a carried card */
+  --lane-rule: var(--line-2);
+  --lane-edge: none;
+  --lane-radius: 0;
+  --card-edge: none;
+  --board-gap: 0px;                      /* with a unit, because Board.module.css does calc() with these */
+  --board-pad: 0px;
+  --lane-end-pad: var(--space-8);        /* room below a lane's last card */
 }
 
 /* An explicit choice overrides the system. */
@@ -263,6 +280,133 @@
       linear-gradient(120deg, rgb(104 101 255 / 0.16), transparent 44%),
       linear-gradient(305deg, rgb(66 214 210 / 0.11), transparent 58%);
   }
+}
+
+/* Glass: always light, with translucent surfaces over a pastel mesh. Chips and accents keep their
+   usual light values. The inks and field edges below are darker than usual because the mesh is
+   darker than white, and they hold 4.5:1 and 3:1 over its strongest colours.
+   Cards stay unblurred on purpose: the mesh is already smooth, so blur would add no visible
+   difference, and it would cost frames during a drag and trap card menus in a stacking context. */
+:root[data-theme="glass"] {
+  color-scheme: light;
+
+  --surface-ground: #eef0ff;
+  --surface-ground-gradient:
+    radial-gradient(48rem 36rem at 8% 4%, rgb(255 182 220 / 0.5), transparent 70%),
+    radial-gradient(44rem 34rem at 92% 12%, rgb(164 208 255 / 0.55), transparent 70%),
+    radial-gradient(52rem 38rem at 76% 100%, rgb(255 222 170 / 0.5), transparent 70%),
+    radial-gradient(40rem 32rem at 12% 96%, rgb(190 184 255 / 0.5), transparent 70%);
+
+  --surface-chrome: rgb(255 255 255 / 0.45);
+  --surface-lane: rgb(255 255 255 / 0.4);
+  --surface-card: rgb(255 255 255 / 0.66);
+  --surface-card-hover: rgb(255 255 255 / 0.82);
+  --surface-overlay: rgb(255 255 255 / 0.78);
+  --surface-lifted: var(--surface-overlay);
+  --surface-hover: rgb(255 255 255 / 0.6);
+  --surface-pressed: rgb(255 255 255 / 0.8);
+  --surface-skeleton: rgb(255 255 255 / 0.55);
+
+  --ink-3: #4a5270;
+  --line-1: rgb(255 255 255 / 0.65);
+  --line-2: rgb(255 255 255 / 0.8);
+  --line-3: #6371a6;
+  --status-todo-ink: #4a4bae;
+  --status-progress-ink: #11647f;
+  --status-review-ink: #6c3a9c;
+  --status-done-ink: #0e6352;
+
+  --accent-wash: rgb(232 233 255 / 0.72);
+  --accent-slot: rgb(214 217 255 / 0.72);
+
+  --button-face-outline: rgb(255 255 255 / 0.55);
+  --button-hover-outline: rgb(255 255 255 / 0.8);
+  --button-border-outline: rgb(255 255 255 / 0.9);
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+
+  --glass-blur: blur(24px) saturate(160%);
+  --lane-rule: transparent;
+  --lane-radius: var(--radius-lg);
+  --lane-edge:
+    inset 0 0 0 1px var(--line-2),
+    0 8px 32px rgb(70 72 150 / 0.1);
+  --card-edge:
+    inset 0 1px 0 rgb(255 255 255 / 0.7),
+    0 2px 8px rgb(70 72 150 / 0.08);
+  --board-gap: var(--space-3);
+  --board-pad: var(--space-3);
+  --lane-end-pad: var(--space-2); /* gives back the height --board-pad takes, so lanes scroll as late as usual */
+}
+
+/* Without transparency or blur, floating surfaces must be solid enough to read on their own. */
+@media (prefers-reduced-transparency: reduce) {
+  :root[data-theme="glass"] {
+    --glass-blur: none;
+    --surface-chrome: #f4f5ff;
+    --surface-lane: #f4f5ff;
+    --surface-card: #ffffff;
+    --surface-card-hover: #fafaff;
+    --surface-overlay: #ffffff;
+    --surface-ground-gradient: none;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  :root[data-theme="glass"] {
+    --surface-overlay: #ffffff;
+  }
+}
+
+/* Pastel: always light, in solid soft colours on cream, with one tint per lane. Words and field
+   edges are darker than usual, so they hold 4.5:1 and 3:1 on every tint. */
+:root[data-theme="pastel"] {
+  color-scheme: light;
+
+  --surface-ground: #fdf8f3;
+  --surface-ground-gradient: none;
+  --surface-chrome: #fff3ea;
+  --surface-lane-todo: #eeebff;
+  --surface-lane-progress: #e0f2fb;
+  --surface-lane-review: #fbe8f3;
+  --surface-lane-done: #e1f6eb;
+  --surface-card: #fffdfb;
+  --surface-card-hover: #fff8f2;
+  --surface-overlay: #fffdfb;
+  --surface-hover: #f3eefb;
+  --surface-pressed: #e9e2f7;
+  --surface-skeleton: #efe9f7;
+
+  --ink-3: #4f5772;
+  --line-1: #f0e8ee;
+  --line-2: #e4dae8;
+  --line-3: #6e7bad;
+  --status-off: #d9d3e6;
+  --status-todo-ink: #4f50b4;
+  --status-progress-ink: #146c88;
+  --status-review-ink: #713ea2;
+  --status-done-ink: #0f6957;
+
+  --accent-tint: #e6e4ff;
+  --accent-wash: #dedcff;
+  --accent-slot: #d2d2fb;
+
+  --button-face-outline: #fffdfb;
+  --button-hover-outline: #f6f0fb;
+  --button-border-outline: #d9cfe4;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.125rem;
+
+  --lane-rule: transparent;
+  --lane-radius: var(--radius-lg);
+  --card-edge: 0 1px 3px rgb(96 78 130 / 0.1);
+  --board-gap: var(--space-3);
+  --board-pad: var(--space-3);
+  --lane-end-pad: var(--space-2); /* gives back the height --board-pad takes, so lanes scroll as late as usual */
 }
 
 /* Reduced motion: movement goes, fades and colour stay. base.css handles the

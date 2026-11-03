@@ -18,7 +18,7 @@ for (const timezoneId of ['Pacific/Kiritimati', 'Pacific/Pago_Pago']) {
       await page.getByRole('button', { name: 'Load sample board' }).click();
       await expect(card(page, 'Run keyboard accessibility pass').getByText('Overdue 1d')).toBeVisible();
       await expect(card(page, 'Outline the Q4 launch plan').getByText('Due tomorrow')).toBeVisible();
-      await expect(page.locator('dl[aria-label="Board statistics"]').getByText('overdue')).toBeVisible();
+      await expect(page.getByRole('group', { name: 'Board statistics' }).getByText('overdue')).toBeVisible();
     });
   });
 }

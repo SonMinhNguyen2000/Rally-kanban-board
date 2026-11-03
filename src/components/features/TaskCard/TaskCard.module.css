@@ -8,6 +8,7 @@
   border: 1px solid var(--line-2);
   border-radius: var(--radius-md);
   background: var(--surface-card);
+  box-shadow: var(--card-edge);
   cursor: pointer;
   touch-action: manipulation;
   user-select: none;
@@ -52,7 +53,8 @@
 .lifted,
 .lifted:hover {
   cursor: grabbing;
-  background: var(--surface-card);
+  background: var(--surface-lifted);
+  backdrop-filter: var(--glass-blur);
   border-color: var(--line-2);
   box-shadow: var(--shadow-drag);
   transform: rotate(var(--lift-rotate)) scale(var(--lift-scale));
@@ -136,6 +138,7 @@
   border: 1px solid var(--line-1);
   border-radius: var(--radius-md);
   background: var(--surface-overlay);
+  backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-menu);
   animation: menu-in var(--dur-popover) var(--ease-out);
 }

@@ -6,6 +6,7 @@
   align-items: center;
   gap: var(--space-5);
   border-bottom: 1px solid var(--line-2);
+  background: var(--surface-chrome);
 }
 
 .brand {
@@ -19,30 +20,6 @@
   line-height: var(--leading-lg);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-tight);
-}
-
-.stats {
-  display: flex;
-  gap: var(--space-4);
-  color: var(--ink-2);
-  font-size: var(--text-md);
-  line-height: var(--leading-md);
-}
-
-.stats > div {
-  display: flex;
-  gap: var(--space-1);
-}
-
-.stats dd {
-  margin: 0;
-  color: var(--ink-1);
-  font-weight: var(--weight-semibold);
-}
-
-.overdue,
-.stats .overdue dd {
-  color: var(--danger-ink);
 }
 
 .offline {
@@ -106,6 +83,5 @@
     order: 3;
     width: 100%;
     padding-bottom: var(--space-1);
-    gap: var(--space-3);
   }
 }
