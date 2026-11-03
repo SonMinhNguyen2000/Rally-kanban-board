@@ -6,8 +6,22 @@
 }
 
 .bar,
-.filter {
+.filter,
+.card {
   flex: none;
+  background:
+    linear-gradient(
+      110deg,
+      var(--surface-skeleton) 30%,
+      var(--accent-tint) 45%,
+      var(--surface-skeleton) 60%
+    );
+  background-size: 220% 100%;
+  animation: skeleton-shimmer 1.6s var(--ease-in-out) infinite;
+}
+
+.bar,
+.filter {
   border-bottom: 1px solid var(--line-2);
 }
 
@@ -35,6 +49,16 @@
   }
 }
 
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
 .lane {
   padding: 0 var(--gutter);
   display: flex;
@@ -56,7 +80,15 @@
 
 .card {
   border-radius: var(--radius-md);
-  background: var(--surface-skeleton);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .filter,
+  .card {
+    animation: none;
+    background: var(--surface-skeleton);
+  }
 }
 
 @media (max-width: 719px) {
