@@ -7,8 +7,8 @@
 -- RLS cannot be evaluated against a row that no longer exists, so Realtime does not run
 -- policies for DELETE. The app's filter keeps other tenants' delete events away. A client that
 -- subscribes without a filter still receives them, with payload.old limited to primary key
--- columns. supabase/tests/api_isolation.mjs measures both, and docs/SCHEMA.md explains why
--- this is accepted.
+-- columns, which is accepted because no content is exposed. supabase/tests/api_isolation.mjs
+-- measures both.
 alter table public.tasks          replica identity full;
 alter table public.team_members   replica identity full;
 alter table public.labels         replica identity full;

@@ -20,7 +20,7 @@ export type ActivityKind =
   | 'label_removed'
   | 'comment_added';
 
-/** A task_activity row, written only by database triggers. Payloads are in docs/SCHEMA.md. */
+/** A task_activity row, written only by database triggers. Payloads are listed in the tables migration. */
 export interface Activity {
   id: number;
   task_id: string;

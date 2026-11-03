@@ -146,7 +146,7 @@ if (failed > 0) {
   console.log('\nRealtime delivery control failed; isolation results would be meaningless.');
   process.exit(1);
 }
-// Only rows B doesn't own count. A local demo-data trigger can give B rows of its own at sign-up.
+// Only rows B doesn't own count, because B's own activity isn't a leak.
 /**
  * Keeps only the events about other users' rows.
  * @param events - The events a channel received.

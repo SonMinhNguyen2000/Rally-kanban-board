@@ -15,6 +15,7 @@ import { useBoard } from '@/lib/data/boardQuery';
 import { useRealtimeSync } from '@/lib/data/realtime';
 import { useLabelActions } from '@/lib/data/useLabelActions';
 import { useMemberActions } from '@/lib/data/useMemberActions';
+import { useSampleBoard } from '@/lib/data/useSampleBoard';
 import { useTaskActions } from '@/lib/data/useTaskActions';
 import { cx } from '@/lib/ui/cx';
 import { useMediaQuery } from '@/lib/ui/useMediaQuery';
@@ -32,6 +33,7 @@ export function BoardScreen({ uid }: { uid: string }) {
   const taskActions = useTaskActions(uid);
   const memberActions = useMemberActions(uid);
   const labelActions = useLabelActions(uid);
+  const sampleBoard = useSampleBoard(uid);
   const connected = useRealtimeSync(uid);
 
   const [filters, setFilters] = useState<Filters>(NO_FILTERS);
@@ -102,9 +104,14 @@ export function BoardScreen({ uid }: { uid: string }) {
         title="Start with one task"
         body="Add what’s on your plate, then move it across the board as it progresses."
         action={
-          <Button large variant="primary" onClick={() => setNewTaskStatus('todo')}>
-            New task
-          </Button>
+          <>
+            <Button large variant="primary" onClick={() => setNewTaskStatus('todo')}>
+              New task
+            </Button>
+            <Button large variant="outline" disabled={sampleBoard.isPending} onClick={() => sampleBoard.mutate()}>
+              {sampleBoard.isPending ? 'Loading…' : 'Load sample board'}
+            </Button>
+          </>
         }
       />
     );

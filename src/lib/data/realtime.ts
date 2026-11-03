@@ -44,7 +44,7 @@ export function useRealtimeSync(uid: string): boolean {
     for (const table of TABLES) {
       channel.on(
         'postgres_changes',
-        // The filter keeps other users' DELETE events away. See docs/SCHEMA.md.
+        // The filter keeps other users' DELETE events away.
         { event: '*', schema: 'public', table, filter: `user_id=eq.${uid}` },
         schedule,
       );

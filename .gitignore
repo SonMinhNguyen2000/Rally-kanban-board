@@ -17,13 +17,12 @@ test-results/
 supabase/.branches/
 supabase/.temp/
 
-# Internal working files
-docs/PLAN.md
-docs/REVIEW.md
-
 # OS and editor
 .DS_Store
 Thumbs.db
 .vscode/
 .idea/
 *.log
+
+# Local database dumps, which hold session tokens
+backups/

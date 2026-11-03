@@ -23,3 +23,9 @@
   line-height: var(--leading-base);
   text-wrap: pretty;
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}

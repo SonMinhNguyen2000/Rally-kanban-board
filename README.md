@@ -17,6 +17,7 @@ Rally is a Kanban task board for keeping track of work as it moves from To Do to
 - Changes appear instantly and roll back with a message if saving fails
 - Live sync across open tabs and devices
 - A count and load bar on each lane, showing where the work is piling up
+- A **Load sample board** button on an empty board, to see everything in use with one click
 
 **Tasks**
 
@@ -89,12 +90,12 @@ Then start the app and open http://127.0.0.1:3000:
 npm run dev
 ```
 
-Locally, each new guest gets a demo board from `supabase/seed.sql`. To rebuild the local database from scratch, run `npx supabase db reset`. To stop the stack, run `npx supabase stop`.
+To rebuild the local database from scratch, run `npx supabase db reset`. To stop the stack, run `npx supabase stop`.
 
 ### Deploy it
 
 1. Create a Supabase project, and turn on anonymous sign-ins under **Authentication > Sign In / Providers**.
-2. Link the project and create the tables. This doesn't run the demo data, so guests on the live site start with an empty board.
+2. Link the project and create the tables. Guests start with an empty board and can load the sample board themselves.
 
    ```sh
    npx supabase link --project-ref <your-project-ref>
@@ -141,7 +142,7 @@ Never use the service role key in this app. It bypasses Row Level Security.
 
 - Two real anonymous sessions can't read or change each other's data through the API
 - Realtime delivers a guest's own changes, and doesn't send another guest's inserts or updates
-- A Realtime client without a filter sees only the primary key of another guest's deleted row, a known limit described in `docs/SCHEMA.md`
+- A Realtime client without a filter sees only the primary key of another guest's deleted row, a known limit
 
 **Browser tests** (`e2e/`)
 
@@ -157,19 +158,14 @@ Never use the service role key in this app. It bypasses Row Level Security.
 - Saved themes applying without a flash, and fonts served from the app's own origin
 - Worst-case data: very long titles, many labels and assignees, emoji and non-Latin text
 - Keyboard focus, screen reader announcements and touch target sizes
+- Loading the sample board, including its failure and loading states
 - An axe accessibility scan of each main screen in both themes, including all ten label colours
 
 Not covered: real phones, Firefox, Safari, and testing with an actual screen reader.
 
 ### Running the browser tests
 
-The browser tests expect a new guest's board to be empty, as it is on the live site. Locally, the demo-data trigger has to be off while they run:
-
-```sh
-docker exec supabase_db_Kanban psql -U supabase_admin -d postgres -c "alter table auth.users disable trigger seed_new_anonymous_user"
-```
-
-To turn it back on, run the same command with `enable` instead of `disable`. If port 3000 is busy, set `E2E_PORT` to run the browser tests on another port.
+If port 3000 is busy, set `E2E_PORT` to run the browser tests on another port.
 
 ## Project structure
 
@@ -194,4 +190,4 @@ supabase/
 e2e/                    # Browser tests
 ```
 
-Further reading: [`design/DESIGN.md`](design/DESIGN.md) is the design system, and [`docs/SCHEMA.md`](docs/SCHEMA.md) documents the database and how guests are kept apart.
+Further reading: [`design/DESIGN.md`](design/DESIGN.md) is the design system, and [`supabase/migrations/`](supabase/migrations/) defines the database and how guests are kept apart.
