@@ -232,5 +232,3 @@ supabase/
 └── tests/              # Database tests and the API isolation test
 e2e/                    # Browser tests
 ```
-
-Further reading: [`design/DESIGN.md`](design/DESIGN.md) is the design system, and [`supabase/migrations/`](supabase/migrations/) defines the database and how guests are kept apart.
