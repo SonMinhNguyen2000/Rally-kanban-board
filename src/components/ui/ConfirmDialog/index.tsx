@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/Button/Button';
-import { Dialog } from '@/components/ui/Dialog/Dialog';
+import { Button } from '@/components/ui/Button';
+import { Dialog } from '@/components/ui/Dialog';
 import styles from './ConfirmDialog.module.css';
 
 /**

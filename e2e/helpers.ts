@@ -12,7 +12,7 @@ const env = Object.fromEntries(
     }),
 );
 export const SUPABASE_URL: string = env.NEXT_PUBLIC_SUPABASE_URL;
-const ANON_KEY: string = env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const PUBLISHABLE_KEY: string = env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 if (!/127\.0\.0\.1|localhost/.test(SUPABASE_URL)) throw new Error('e2e only runs against a local stack');
 
 /** The saved browser state of a guest. */
@@ -64,7 +64,7 @@ export async function rest(
   const response = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
     method: init.method ?? 'GET',
     headers: {
-      apikey: ANON_KEY,
+      apikey: PUBLISHABLE_KEY,
       authorization: `Bearer ${token}`,
       'content-type': 'application/json',
       prefer: 'return=representation',

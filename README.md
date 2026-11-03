@@ -48,7 +48,7 @@ Rally is a Kanban task board for keeping track of work as it moves from To Do to
 **Privacy**
 
 - Row Level Security on every table, so guests can only reach their own data
-- Only the Supabase anon key is used, in both browser and server code
+- Only the Supabase publishable key is used, in both browser and server code
 
 ## Tech stack
 
@@ -82,7 +82,7 @@ The last command prints your local keys. Put them in `.env.local`:
 | From `supabase status` | In `.env.local` |
 |---|---|
 | `API_URL` | `NEXT_PUBLIC_SUPABASE_URL` |
-| `ANON_KEY` | `NEXT_PUBLIC_SUPABASE_ANON_KEY` |
+| `PUBLISHABLE_KEY` | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` |
 
 Then start the app and open http://127.0.0.1:3000:
 
@@ -102,7 +102,7 @@ To rebuild the local database from scratch, run `npx supabase db reset`. To stop
    npx supabase db push
    ```
 
-3. Deploy to a host that runs Next.js on a server, such as Vercel, because writes use server actions. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` from **Project Settings > API**.
+3. Deploy to a host that runs Next.js on a server, such as Vercel, because writes use server actions. Set `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` from **Project Settings > API**.
 
 Never use the service role key in this app. It bypasses Row Level Security.
 

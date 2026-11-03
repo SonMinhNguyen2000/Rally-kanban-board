@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core';
-import { StatusMark } from '@/components/ui/StatusMark/StatusMark';
+import { StatusMark } from '@/components/ui/StatusMark';
 import { trayDropId } from '@/lib/board/dropTargets';
 import { cx } from '@/lib/ui/cx';
 import { LANE, type Status } from '@/types/task';

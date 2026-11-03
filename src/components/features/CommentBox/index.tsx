@@ -1,6 +1,6 @@
 import { CornerDownLeft } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { Button } from '@/components/ui/Button/Button';
+import { Button } from '@/components/ui/Button';
 import { useCommentActions } from '@/lib/data/timeline';
 import { useAutoGrow } from '@/lib/ui/useAutoGrow';
 import styles from './CommentBox.module.css';

@@ -1,5 +1,5 @@
 import { X } from 'lucide-react';
-import { IconButton } from '@/components/ui/IconButton/IconButton';
+import { IconButton } from '@/components/ui/IconButton';
 import { cx } from '@/lib/ui/cx';
 import { dismissToast, useToasts } from '@/lib/ui/toast';
 import styles from './Toaster.module.css';

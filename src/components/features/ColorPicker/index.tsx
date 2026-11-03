@@ -1,5 +1,5 @@
-import { Picker } from '@/components/ui/Picker/Picker';
-import { Swatch } from '@/components/ui/Swatch/Swatch';
+import { Picker } from '@/components/ui/Picker';
+import { Swatch } from '@/components/ui/Swatch';
 import { PALETTE, type PaletteColor } from '@/types/palette';
 import styles from './ColorPicker.module.css';
 

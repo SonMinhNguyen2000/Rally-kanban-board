@@ -1,4 +1,4 @@
-import { Avatar } from '@/components/ui/Avatar/Avatar';
+import { Avatar } from '@/components/ui/Avatar';
 import type { TeamMember } from '@/types/team';
 import styles from './AvatarStack.module.css';
 

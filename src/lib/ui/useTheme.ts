@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ThemeContext } from '@/components/features/AppProviders/AppProviders';
+import { ThemeContext } from '@/components/features/AppProviders';
 
 /** The user's theme choice. `system` follows the operating system. */
 export type ThemeChoice = 'system' | 'light' | 'dark';

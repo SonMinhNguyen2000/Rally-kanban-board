@@ -1,4 +1,4 @@
-import { TimelineItem } from '@/components/features/TimelineItem/TimelineItem';
+import { TimelineItem } from '@/components/features/TimelineItem';
 import { useCommentActions, useTimeline } from '@/lib/data/timeline';
 import styles from './Timeline.module.css';
 

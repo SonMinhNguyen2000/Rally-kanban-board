@@ -1,8 +1,8 @@
 import { Trash2 } from 'lucide-react';
 import { useState } from 'react';
-import { ColorPicker } from '@/components/features/ColorPicker/ColorPicker';
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog/ConfirmDialog';
-import { IconButton } from '@/components/ui/IconButton/IconButton';
+import { ColorPicker } from '@/components/features/ColorPicker';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { IconButton } from '@/components/ui/IconButton';
 import type { PaletteColor } from '@/types/palette';
 import styles from './ManageRow.module.css';
 

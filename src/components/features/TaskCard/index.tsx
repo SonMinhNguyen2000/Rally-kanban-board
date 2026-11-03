@@ -1,9 +1,9 @@
 import { ArrowDown, ArrowUp, FileText, MoreHorizontal, MessageSquare, Trash2 } from 'lucide-react';
 import { useState, type HTMLAttributes } from 'react';
-import { DueChip } from '@/components/features/DueChip/DueChip';
-import { AvatarStack } from '@/components/ui/AvatarStack/AvatarStack';
-import { ConfirmDialog } from '@/components/ui/ConfirmDialog/ConfirmDialog';
-import { LabelChip } from '@/components/ui/LabelChip/LabelChip';
+import { DueChip } from '@/components/features/DueChip';
+import { AvatarStack } from '@/components/ui/AvatarStack';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { LabelChip } from '@/components/ui/LabelChip';
 import { cx } from '@/lib/ui/cx';
 import type { Label } from '@/types/label';
 import { PRIORITY_NAME, type Task } from '@/types/task';

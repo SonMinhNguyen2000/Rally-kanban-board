@@ -1,8 +1,8 @@
 'use client';
 
-import { BoardScreen } from '@/components/features/BoardScreen/BoardScreen';
-import { BoardSkeleton } from '@/components/features/BoardSkeleton/BoardSkeleton';
-import { Failure } from '@/components/features/Failure/Failure';
+import { BoardScreen } from '@/components/features/BoardScreen';
+import { BoardSkeleton } from '@/components/features/BoardSkeleton';
+import { Failure } from '@/components/features/Failure';
 import { useUserId } from '@/lib/auth/useUserId';
 import { isConfigured } from '@/lib/supabase/client';
 
@@ -17,7 +17,7 @@ export function App() {
     return (
       <Failure
         title="Rally isn’t connected yet"
-        body="Copy .env.example to .env.local, set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY, then restart the dev server."
+        body="Copy .env.example to .env.local, set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, then restart the dev server."
       />
     );
   }

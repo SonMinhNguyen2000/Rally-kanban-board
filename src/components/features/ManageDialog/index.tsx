@@ -1,6 +1,6 @@
-import { AddRow } from '@/components/features/AddRow/AddRow';
-import { ManageRow } from '@/components/features/ManageRow/ManageRow';
-import { Dialog } from '@/components/ui/Dialog/Dialog';
+import { AddRow } from '@/components/features/AddRow';
+import { ManageRow } from '@/components/features/ManageRow';
+import { Dialog } from '@/components/ui/Dialog';
 import type { LabelActions } from '@/lib/data/useLabelActions';
 import type { MemberActions } from '@/lib/data/useMemberActions';
 import { PALETTE, type PaletteColor } from '@/types/palette';

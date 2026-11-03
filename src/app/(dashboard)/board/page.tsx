@@ -1,5 +1,5 @@
-import { App } from '@/components/features/App/App';
-import { AppProviders } from '@/components/features/AppProviders/AppProviders';
+import { App } from '@/components/features/App';
+import { AppProviders } from '@/components/features/AppProviders';
 
 /**
  * The board route. The page is client-rendered, and its session starts in the browser.

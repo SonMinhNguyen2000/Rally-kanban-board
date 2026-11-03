@@ -1,4 +1,4 @@
-import { StatusMark } from '@/components/ui/StatusMark/StatusMark';
+import { StatusMark } from '@/components/ui/StatusMark';
 import { STATUSES, type Status } from '@/types/task';
 import styles from './BoardSkeleton.module.css';
 

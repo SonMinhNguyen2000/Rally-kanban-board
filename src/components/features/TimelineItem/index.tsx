@@ -1,5 +1,5 @@
 import { Trash2 } from 'lucide-react';
-import { IconButton } from '@/components/ui/IconButton/IconButton';
+import { IconButton } from '@/components/ui/IconButton';
 import { describeActivity } from '@/lib/board/activity';
 import { relativeTime } from '@/lib/board/dates';
 import type { TimelineEntry } from '@/types/timeline';

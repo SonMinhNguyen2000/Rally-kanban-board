@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from 'react';
-import { ColorPicker } from '@/components/features/ColorPicker/ColorPicker';
-import { Button } from '@/components/ui/Button/Button';
-import { FieldError } from '@/components/ui/FieldError/FieldError';
-import { TextInput } from '@/components/ui/TextInput/TextInput';
+import { ColorPicker } from '@/components/features/ColorPicker';
+import { Button } from '@/components/ui/Button';
+import { FieldError } from '@/components/ui/FieldError';
+import { TextInput } from '@/components/ui/TextInput';
 import { friendlyError } from '@/lib/errors';
 import type { PaletteColor } from '@/types/palette';
 import styles from './AddRow.module.css';

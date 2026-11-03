@@ -1,10 +1,10 @@
 import { ChevronDown, ListFilter, Search, X } from 'lucide-react';
 import { useState } from 'react';
-import { Avatar } from '@/components/ui/Avatar/Avatar';
-import { Button } from '@/components/ui/Button/Button';
-import { LabelChip } from '@/components/ui/LabelChip/LabelChip';
-import { Picker } from '@/components/ui/Picker/Picker';
-import { Swatch } from '@/components/ui/Swatch/Swatch';
+import { Avatar } from '@/components/ui/Avatar';
+import { Button } from '@/components/ui/Button';
+import { LabelChip } from '@/components/ui/LabelChip';
+import { Picker } from '@/components/ui/Picker';
+import { Swatch } from '@/components/ui/Swatch';
 import { hasFilters } from '@/lib/board/filters';
 import { cx } from '@/lib/ui/cx';
 import { NO_FILTERS, type Filters } from '@/types/filters';

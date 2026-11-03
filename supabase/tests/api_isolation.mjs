@@ -9,8 +9,8 @@ import assert from 'node:assert/strict';
 
 // The same public values the app uses. No service role key is involved.
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-assert.ok(url && key, 'NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY must be set');
+const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+assert.ok(url && key, 'NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY must be set');
 assert.match(url, /127\.0\.0\.1|localhost/, 'This test writes data, so it only runs against a local stack');
 
 // Each client keeps its session in memory, so A and B stay separate.

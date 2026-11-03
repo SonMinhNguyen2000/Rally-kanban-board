@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import type { KeyboardEvent } from 'react';
-import { TaskCard } from '@/components/features/TaskCard/TaskCard';
+import { TaskCard } from '@/components/features/TaskCard';
 import type { Label } from '@/types/label';
 import type { Status, Task } from '@/types/task';
 import type { TeamMember } from '@/types/team';

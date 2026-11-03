@@ -1,7 +1,7 @@
 import { Monitor, Moon, Plus, Sun, Users } from 'lucide-react';
-import { Button } from '@/components/ui/Button/Button';
-import { Picker } from '@/components/ui/Picker/Picker';
-import { StatusMark } from '@/components/ui/StatusMark/StatusMark';
+import { Button } from '@/components/ui/Button';
+import { Picker } from '@/components/ui/Picker';
+import { StatusMark } from '@/components/ui/StatusMark';
 import { boardStats } from '@/lib/board/stats';
 import { cx } from '@/lib/ui/cx';
 import { useTheme } from '@/lib/ui/useTheme';

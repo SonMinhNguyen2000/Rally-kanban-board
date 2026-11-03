@@ -17,9 +17,9 @@ import {
 } from '@dnd-kit/core';
 import { arrayMove, sortableKeyboardCoordinates } from '@dnd-kit/sortable';
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Lane } from '@/components/features/Lane/Lane';
-import { TaskCard } from '@/components/features/TaskCard/TaskCard';
-import { TrayTarget } from '@/components/features/TrayTarget/TrayTarget';
+import { Lane } from '@/components/features/Lane';
+import { TaskCard } from '@/components/features/TaskCard';
+import { TrayTarget } from '@/components/features/TrayTarget';
 import { groupIntoColumns, laneOf, moveCard, type Columns } from '@/lib/board/columns';
 import { isLaneId, isTrayId, statusFromDropId } from '@/lib/board/dropTargets';
 import { positionBetween } from '@/lib/board/positions';
