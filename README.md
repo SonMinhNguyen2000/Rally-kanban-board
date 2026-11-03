@@ -66,9 +66,52 @@ Rally is a Kanban task board for keeping track of work as it moves from To Do to
 ### What you need
 
 - Node.js 24
-- Docker, running, for the local Supabase stack
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/), or another Docker engine, for the local Supabase stack
+
+### Docker
+
+The Supabase CLI uses Docker to run the database, Auth, API, Realtime and Studio on your machine. You don't write any Docker files or commands yourself, and the app runs on Node.js rather than in a container.
+
+1. Install Docker and start it.
+2. Check that it's running. This should print a table, even if it's empty:
+
+   ```sh
+   docker ps
+   ```
+
+3. Start the stack from the project folder. The first run downloads several GB of images and can take a few minutes.
+
+   ```sh
+   npx supabase start
+   ```
+
+The stack uses these ports:
+
+| Service | Address |
+|---|---|
+| API | http://127.0.0.1:54321 |
+| Database | `postgresql://postgres:postgres@127.0.0.1:54322/postgres` |
+| Studio, the local dashboard | http://127.0.0.1:54323 |
+| Local email inbox | http://127.0.0.1:54324 |
+
+Day to day:
+
+| Command | What it does |
+|---|---|
+| `npx supabase status` | Shows whether the stack is running, with its URLs and keys |
+| `npx supabase stop` | Stops the containers and keeps your data |
+| `npx supabase stop --no-backup` | Stops the containers and deletes your local data |
+| `npx supabase db reset` | Rebuilds the local database from the migrations |
+
+If something goes wrong:
+
+- **"Cannot connect to the Docker daemon":** Docker isn't running. Start it and try again.
+- **A port is already in use:** another project's Supabase stack may be running. Stop it with `npx supabase stop --project-id <its id>`, or change the ports in `supabase/config.toml`.
+- **`supabase_vector_Kanban` keeps restarting on Docker Desktop for Windows:** it only ships logs and can't reach the Docker daemon, so you can ignore it. Nothing else depends on it.
 
 ### Run it locally
+
+With Docker running:
 
 ```sh
 npm install
