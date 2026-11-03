@@ -1,15 +1,6 @@
--- Maintenance and activity triggers. task_activity is written only from here, so history
--- cannot be forged or skipped by a client.
-
--- Trigger functions live outside the schemas exposed by the API.
 create schema if not exists private;
 revoke all on schema private from public, anon, authenticated;
 
--- -----------------------------------------------------------------------------
--- Maintenance triggers
--- -----------------------------------------------------------------------------
-
--- Stamps updated_at on any update that changes the row. Fires BEFORE UPDATE on tasks.
 create or replace function private.set_updated_at()
 returns trigger
 language plpgsql
@@ -21,9 +12,6 @@ begin
 end;
 $$;
 
--- Places a new task at the bottom of its column when the client sends no position.
--- Fires BEFORE INSERT on tasks.
--- Runs as the caller, so RLS limits the lookup to the caller's own rows.
 create or replace function private.set_task_position()
 returns trigger
 language plpgsql
@@ -51,15 +39,6 @@ create or replace trigger tasks_set_position
   when (new.position is null)
   execute function private.set_task_position();
 
--- -----------------------------------------------------------------------------
--- Activity triggers
--- -----------------------------------------------------------------------------
--- SECURITY DEFINER lets these write to task_activity, which clients have no write access
--- to. search_path is empty and every name is qualified, so a caller cannot redirect them.
--- The actor is taken from the row, not auth.uid(), so changes made outside a user session
--- are logged correctly too.
-
--- Logs task creation and each changed field as its own entry. Fires AFTER INSERT or UPDATE on tasks.
 create or replace function private.log_task_change()
 returns trigger
 language plpgsql
@@ -74,7 +53,6 @@ begin
     return new;
   end if;
 
-  -- position is deliberately absent: reordering is not history.
   if new.title is distinct from old.title then
     insert into public.task_activity (task_id, user_id, kind, payload)
     values (new.id, new.user_id, 'title_edited',
@@ -108,14 +86,6 @@ begin
 end;
 $$;
 
--- Logs a member being assigned to or removed from a task. Fires AFTER INSERT or DELETE on
--- task_assignees.
---
--- On removal the INSERT ... SELECT finds nothing, and so logs nothing, in two cascades:
---   * the task is being deleted, so its history is going too and a new row would violate
---     the foreign key;
---   * the member is being deleted, which private.log_member_delete has already logged
---     while the name could still be read.
 create or replace function private.log_assignee_change()
 returns trigger
 language plpgsql
@@ -142,8 +112,6 @@ begin
 end;
 $$;
 
--- Logs a label being added to or removed from a task. Same two cascade cases as
--- private.log_assignee_change.
 create or replace function private.log_label_change()
 returns trigger
 language plpgsql
@@ -170,13 +138,6 @@ begin
 end;
 $$;
 
--- BEFORE DELETE, because by the time the cascade reaches the join rows the member row is gone
--- and its name can no longer be read.
---
--- The join to tasks matters when a whole account is deleted. That cascade removes the task
--- first and reaches the join rows only at the end of the statement, so this trigger can still
--- see a join row whose task is gone. Logging against it would violate task_activity_task_fk
--- and abort the account delete.
 create or replace function private.log_member_delete()
 returns trigger
 language plpgsql
@@ -194,7 +155,6 @@ begin
 end;
 $$;
 
--- Same as private.log_member_delete, for labels.
 create or replace function private.log_label_delete()
 returns trigger
 language plpgsql
@@ -212,7 +172,6 @@ begin
 end;
 $$;
 
--- Logs a new comment with a short excerpt. Fires AFTER INSERT on comments.
 create or replace function private.log_comment_added()
 returns trigger
 language plpgsql
@@ -227,7 +186,6 @@ begin
 end;
 $$;
 
--- Trigger functions cannot be called directly, but nothing needs EXECUTE on them either.
 revoke all on function private.set_updated_at() from public, anon, authenticated;
 revoke all on function private.set_task_position() from public, anon, authenticated;
 revoke all on function private.log_task_change() from public, anon, authenticated;
@@ -241,7 +199,6 @@ create or replace trigger tasks_log_insert
   after insert on public.tasks
   for each row execute function private.log_task_change();
 
--- UPDATE OF skips the function altogether for a position-only update.
 create or replace trigger tasks_log_update
   after update of title, description, status, priority, due_date on public.tasks
   for each row execute function private.log_task_change();

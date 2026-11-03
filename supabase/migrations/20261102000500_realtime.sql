@@ -1,14 +1,3 @@
--- Realtime publication and replica identity.
---
--- By default the WAL records only the primary key of a deleted row, so Realtime cannot
--- apply a `user_id=eq.<uid>` subscription filter to a DELETE. REPLICA IDENTITY FULL records
--- the whole old row so that it can.
---
--- RLS cannot be evaluated against a row that no longer exists, so Realtime does not run
--- policies for DELETE. The app's filter keeps other tenants' delete events away. A client that
--- subscribes without a filter still receives them, with payload.old limited to primary key
--- columns, which is accepted because no content is exposed. supabase/tests/api_isolation.mjs
--- measures both.
 alter table public.tasks          replica identity full;
 alter table public.team_members   replica identity full;
 alter table public.labels         replica identity full;
