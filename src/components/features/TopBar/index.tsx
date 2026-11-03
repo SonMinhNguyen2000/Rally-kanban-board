@@ -1,7 +1,7 @@
 import { Monitor, Moon, Plus, Sun, Users } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Picker } from '@/components/ui/Picker';
-import { StatusMark } from '@/components/ui/StatusMark';
+import { RallyLogo } from '@/components/ui/RallyLogo';
 import { boardStats } from '@/lib/board/stats';
 import { cx } from '@/lib/ui/cx';
 import { useTheme } from '@/lib/ui/useTheme';
@@ -39,7 +39,7 @@ export function TopBar({ tasks, connected, primaryAction, onNewTask, onManage }:
   return (
     <header className={styles.topbar}>
       <div className={styles.brand}>
-        <StatusMark status="done" />
+        <RallyLogo />
         <h1>Rally</h1>
       </div>
       <dl className={styles.stats} aria-label="Board statistics">

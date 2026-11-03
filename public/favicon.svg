@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#432e14"/><g fill="#4ec68e"><rect x="7" y="8" width="3" height="16" rx="1.5"/><rect x="12.3" y="8" width="3" height="16" rx="1.5"/><rect x="17.6" y="8" width="3" height="16" rx="1.5"/><rect x="22.9" y="8" width="3" height="16" rx="1.5"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="rally" x1="6" y1="25" x2="26" y2="7" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5756d9"/>
+      <stop offset=".5" stop-color="#8b5cf6"/>
+      <stop offset="1" stop-color="#20a581"/>
+    </linearGradient>
+  </defs>
+  <g fill="url(#rally)">
+    <rect x="6" y="5" width="4" height="22" rx="2"/>
+    <rect x="11.5" y="5" width="4" height="22" rx="2"/>
+    <rect x="17" y="5" width="4" height="22" rx="2"/>
+    <rect x="22.5" y="5" width="4" height="22" rx="2"/>
+  </g>
+</svg>
