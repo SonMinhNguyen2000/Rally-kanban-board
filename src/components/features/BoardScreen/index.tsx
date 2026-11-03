@@ -4,7 +4,7 @@ import { BoardNotice } from '@/components/features/BoardNotice';
 import { BoardSkeleton } from '@/components/features/BoardSkeleton';
 import { Failure } from '@/components/features/Failure';
 import { FilterBar } from '@/components/features/FilterBar';
-import { ManageDialog } from '@/components/features/ManageDialog';
+import { ManageDialog, type ManageSection } from '@/components/features/ManageDialog';
 import { NewTaskDialog } from '@/components/features/NewTaskDialog';
 import { TaskPanel } from '@/components/features/TaskPanel';
 import { TopBar } from '@/components/features/TopBar';
@@ -40,7 +40,7 @@ export function BoardScreen({ uid }: { uid: string }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [closing, setClosing] = useState(false); // The panel is playing its exit, with selectedId kept until it ends.
   const [newTaskStatus, setNewTaskStatus] = useState<Status | null>(null);
-  const [managing, setManaging] = useState(false);
+  const [managing, setManaging] = useState<ManageSection | null>(null);
   const isWide = useMediaQuery('(min-width: 1100px)'); // Wide screens keep the board usable behind the panel.
 
   const lastCardRef = useRef<string | null>(null); // The card to return focus to when the panel closes.
@@ -138,7 +138,7 @@ export function BoardScreen({ uid }: { uid: string }) {
           connected={connected}
           primaryAction={!isFirstRun}
           onNewTask={() => setNewTaskStatus('todo')}
-          onManage={() => setManaging(true)}
+          onManage={setManaging}
         />
         <FilterBar filters={filters} onChange={setFilters} members={members} labels={labels} />
 
@@ -169,7 +169,7 @@ export function BoardScreen({ uid }: { uid: string }) {
           closing={closing}
           onClose={closePanel}
           onClosed={finishClosing}
-          onManage={() => setManaging(true)}
+          onManage={() => setManaging('members')}
         />
       )}
 
@@ -188,7 +188,8 @@ export function BoardScreen({ uid }: { uid: string }) {
           labels={labels}
           memberActions={memberActions}
           labelActions={labelActions}
-          onClose={() => setManaging(false)}
+          onClose={() => setManaging(null)}
+          section={managing}
         />
       )}
       <Toaster />

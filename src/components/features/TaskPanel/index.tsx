@@ -2,6 +2,7 @@ import { Trash2, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Avatar } from '@/components/ui/Avatar';
 import { Button } from '@/components/ui/Button';
+import type { ManageSection } from '@/components/features/ManageDialog';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 import { IconButton } from '@/components/ui/IconButton';
 import { LabelChip } from '@/components/ui/LabelChip';
@@ -42,7 +43,7 @@ interface TaskPanelProps {
   closing: boolean;
   onClose: () => void;
   onClosed: () => void;
-  onManage: () => void;
+  onManage: (section: ManageSection) => void;
 }
 
 /**
@@ -250,7 +251,7 @@ export function TaskPanel({ uid, task, members, labels, actions, closing, onClos
                 <Button
                   onClick={() => {
                     close();
-                    onManage();
+                    onManage('members');
                   }}
                 >
                   Manage team
@@ -296,7 +297,7 @@ export function TaskPanel({ uid, task, members, labels, actions, closing, onClos
                 <Button
                   onClick={() => {
                     close();
-                    onManage();
+                    onManage('labels');
                   }}
                 >
                   Manage labels

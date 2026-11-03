@@ -15,6 +15,8 @@ import styles from './ManageDialog.module.css';
  */
 const nextColor = (count: number): PaletteColor => PALETTE[count % PALETTE.length] as PaletteColor;
 
+export type ManageSection = 'members' | 'labels';
+
 /**
  * Where people and labels are added, renamed, recoloured and deleted.
  * @param props.members - The team members to list.
@@ -30,18 +32,27 @@ export function ManageDialog({
   memberActions,
   labelActions,
   onClose,
+  section = 'members',
 }: {
   members: TeamMember[];
   labels: Label[];
   memberActions: MemberActions;
   labelActions: LabelActions;
   onClose: () => void;
+  section?: ManageSection;
 }) {
   return (
-    <Dialog title="Team and labels" onClose={onClose}>
-      <section className={styles.section} aria-labelledby="manage-team">
+    <Dialog title={section === 'members' ? 'Team' : 'Labels'} onClose={onClose}>
+      {section === 'members' && <section className={styles.section} aria-labelledby="manage-team">
         <h3 id="manage-team">Team</h3>
         {members.length === 0 && <p className={styles.hint}>Add the people you assign work to.</p>}
+        <AddRow
+          noun="Member"
+          placeholder="Add a person"
+          maxLength={80}
+          nextColor={nextColor(members.length)}
+          onAdd={memberActions.create}
+        />
         <ul className={styles.rows}>
           {members.map((member) => (
             <ManageRow
@@ -55,18 +66,18 @@ export function ManageDialog({
             />
           ))}
         </ul>
-        <AddRow
-          noun="Member"
-          placeholder="Add a person"
-          maxLength={80}
-          nextColor={nextColor(members.length)}
-          onAdd={memberActions.create}
-        />
-      </section>
+      </section>}
 
-      <section className={styles.section} aria-labelledby="manage-labels">
+      {section === 'labels' && <section className={styles.section} aria-labelledby="manage-labels">
         <h3 id="manage-labels">Labels</h3>
         {labels.length === 0 && <p className={styles.hint}>Labels group related work and can be used as filters.</p>}
+        <AddRow
+          noun="Label"
+          placeholder="Add a label"
+          maxLength={50}
+          nextColor={nextColor(labels.length + 5)}
+          onAdd={labelActions.create}
+        />
         <ul className={styles.rows}>
           {labels.map((label) => (
             <ManageRow
@@ -80,14 +91,7 @@ export function ManageDialog({
             />
           ))}
         </ul>
-        <AddRow
-          noun="Label"
-          placeholder="Add a label"
-          maxLength={50}
-          nextColor={nextColor(labels.length + 5)}
-          onAdd={labelActions.create}
-        />
-      </section>
+      </section>}
     </Dialog>
   );
 }

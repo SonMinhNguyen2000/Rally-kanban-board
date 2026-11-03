@@ -1,4 +1,4 @@
-import { Monitor, Moon, Plus, Sun, Users } from 'lucide-react';
+import { Monitor, Moon, Plus, Sun, Tags, Users } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Picker } from '@/components/ui/Picker';
 import { RallyLogo } from '@/components/ui/RallyLogo';
@@ -6,6 +6,7 @@ import { boardStats } from '@/lib/board/stats';
 import { cx } from '@/lib/ui/cx';
 import { useTheme } from '@/lib/ui/useTheme';
 import type { Task } from '@/types/task';
+import type { ManageSection } from '@/components/features/ManageDialog';
 import styles from './TopBar.module.css';
 
 /** Props for the top bar. `primaryAction` is off when another button is the view's filled one. */
@@ -14,7 +15,7 @@ interface TopBarProps {
   connected: boolean;
   primaryAction: boolean;
   onNewTask: () => void;
-  onManage: () => void;
+  onManage: (section: ManageSection) => void;
 }
 
 /**
@@ -76,9 +77,13 @@ export function TopBar({ tasks, connected, primaryAction, onNewTask, onManage }:
             </>
           }
         />
-        <Button onClick={onManage} aria-label="Team and labels">
+        <Button onClick={() => onManage('members')} aria-label="Manage team">
           <Users size={16} aria-hidden="true" />
-          <span className={styles.manageText}>Team and labels</span>
+          <span className={styles.manageText}>Team</span>
+        </Button>
+        <Button onClick={() => onManage('labels')} aria-label="Manage labels">
+          <Tags size={16} aria-hidden="true" />
+          <span className={styles.manageText}>Labels</span>
         </Button>
         <Button variant={primaryAction ? 'primary' : 'outline'} onClick={onNewTask}>
           <Plus size={16} aria-hidden="true" />
